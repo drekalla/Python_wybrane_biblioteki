@@ -1,0 +1,14 @@
+Napisać program który pobiera od użytkownika dowolny napis, a następnie wykona na nim operacje
+zamiany wszystkich liter na wielkie. Tak zmieniony napis ma zostać wydrukowany w konsoli.
+
+bulka2 => bulka2
+bułka => BUŁKA
+bułka2 => BUŁKA2
+bułka z masłem => BUŁKA Z MASŁEM
+pieczywo bez niczego => PIECZYWO BEZ NICZEGO
+12345 => 12345
+123 licZBY 456 => 123 licZBY 456
+DUZE => DUZE
+DUŻE => DUŻE
+ą, ć, ę, ł, ń, ó, ś, ź, ż. => Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż.
+Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż. => Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż.
