@@ -80,6 +80,7 @@ class Window(object):
         allFiles = os.listdir(self.selectedFolder)
         javaFiles = [file for file in allFiles if file[-5:] == ".java"]
 
+        self.javaFilesListbox.delete(0, tk.END)
         for file in javaFiles:
             self.javaFilesListbox.insert(tk.END, file)
 
