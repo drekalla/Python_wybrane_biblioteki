@@ -16,6 +16,14 @@ class Window(object):
         self.jdkString = tk.StringVar()
         self.jdkString.set("Nie wybrałeś JDK!")
 
+        # Start testFileString value (GUI text)
+        self.testFileString = tk.StringVar()
+        self.testFileString.set("Nie wybrałeś pliku z testami!")
+
+        # Start resultFileString value (GUI text)
+        self.resultFileString = tk.StringVar()
+        self.resultFileString.set("Nie wybrałeś pliku z wynikami!")
+
         # Start resultString value (GUI text)
         self.resultString = tk.StringVar()
         self.resultString.set(0)
@@ -39,6 +47,16 @@ class Window(object):
         self.jdkLabelVariable = tk.Label(
             window, textvariable=self.jdkString, font=self.uiFontNormal)
 
+        self.testFileLabel = tk.Label(
+            window, text="Wybrany plik z testami:", font=self.uiFontUnderline)
+        self.testFileLabelVariable = tk.Label(
+            window, textvariable=self.testFileString, font=self.uiFontNormal)
+
+        self.resultFileLabel = tk.Label(
+            window, text="Wybrany plik z wynikami:", font=self.uiFontUnderline)
+        self.resultFileLabelVariable = tk.Label(
+            window, textvariable=self.resultFileString, font=self.uiFontNormal)
+
         self.resultLabel = tk.Label(
             window, text="Wynik: ", font=self.uiFontUnderline)
         self.resultLabelVariable = tk.Label(
@@ -56,6 +74,10 @@ class Window(object):
             window, text="Wybierz folder", font=self.uiFontNormal, height=1, width=30, command=self.choose_folder_command)
         self.chooseJDKButtton = tk.Button(
             window, text="Wybierz JDK", font=self.uiFontNormal, height=1, width=30, command=self.choose_jdk_command)
+        self.chooseTestFileButtton = tk.Button(
+            window, text="Wybierz plik z testami", font=self.uiFontNormal, height=1, width=30, command=self.choose_test_file_command)
+        self.chooseResultFileButtton = tk.Button(
+            window, text="Wybierz plik z wynikami", font=self.uiFontNormal, height=1, width=30, command=self.choose_result_file_command)
         self.runFileButtton = tk.Button(window, text="Uruchom wybrany plik", font=self.uiFontNormal,
                                         height=1, width=30, bg="#A9A9A9", command=self.run_app_command)
 
@@ -78,6 +100,9 @@ class Window(object):
         self.chooseFolderButtton.grid(row=5, column=0)
         self.folderLabel.grid(row=6, column=0)
         self.folderLabelVariable.grid(row=7, column=0)
+        self.chooseTestFileButtton.grid(row=8, column=0)
+        self.testFileLabel.grid(row=9, column=0)
+        self.testFileLabelVariable.grid(row=10, column=0)
 
         self.scrollbar.grid(row=0, column=1, rowspan=4)
 
@@ -89,6 +114,9 @@ class Window(object):
         self.chooseJDKButtton.grid(row=5, column=2)
         self.jdkLabel.grid(row=6, column=2)
         self.jdkLabelVariable.grid(row=7, column=2)
+        self.chooseResultFileButtton.grid(row=8, column=2)
+        self.resultFileLabel.grid(row=9, column=2)
+        self.resultFileLabelVariable.grid(row=10, column=2)
 
     def refresh_listbox_command(self):
         allFiles = os.listdir(self.selectedFolder)
@@ -107,6 +135,16 @@ class Window(object):
     def choose_jdk_command(self):
         self.selectedJDK = filedialog.askdirectory()
         self.jdkString.set(self.selectedJDK)
+
+    def choose_test_file_command(self):
+        self.selectedTestFile = filedialog.askopenfilename(
+            title="Wybierz plik z testami", filetypes=[("Pliki tekstowe", "*.txt")])
+        self.testFileString.set(self.selectedTestFile)
+
+    def choose_result_file_command(self):
+        self.selectedResultFile = filedialog.askopenfilename(
+            title="Wybierz plik z wynikami", filetypes=[("Pliki tekstowe", "*.txt")])
+        self.resultFileString.set(self.selectedResultFile)
 
     def run_app_command(self):
         # ToDo
