@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 import os
+from testJavaProgram import testJavaProgram
 
 
 class Window(object):
@@ -151,7 +152,10 @@ class Window(object):
         # Oprogramować uruchamianie wybranego pliku
         # self.selectedFolder - zawiera ścieżke do wybranego folderu
         # self.selectedFile - zawiera nazwę wybranego pliku
+        result, time = testJavaProgram(self.selectedJDK, self.selectedResultFile, self.selectedTestFile, self.selectedFolder, self.selectedFile)
 
+        self.resultString.set(result)
+        self.timeString.set(time)
         print("Plik uruchomiony")
 
     def get_selected_file(self, event):
