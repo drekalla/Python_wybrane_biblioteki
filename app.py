@@ -185,12 +185,13 @@ class Window(object):
         try:
             result, time = testJavaProgram(self.selectedJDK, self.selectedResultFile,
                                            self.selectedTestFile, self.selectedFolder, self.selectedFile)
+            self.resultString.set(result)
+            self.timeString.set(time)
         except:
             messagebox.showerror("Wystąpił błąd",
                                  "Musisz wybrać prawidłowe foldery oraz pliki\n"
                                  "Musisz wybrać plik JAVA z listy")
-        self.resultString.set(result)
-        self.timeString.set(time)
+
 
     def get_selected_file(self, event):
         try:
