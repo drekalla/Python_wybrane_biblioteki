@@ -1,8 +1,11 @@
 package com.company;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Scanner;
 
+// to zadanie powinnp być wykonane poprawnie dla każdego przypadku liczb z zakresu liczb double
 public class zad1a {
 
     static double potegowanie(double a, double b){
@@ -10,12 +13,13 @@ public class zad1a {
     }
 
     public static void main(String[] args) {
+        DecimalFormatSymbols nf = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat df = new DecimalFormat("#.####", nf);
         System.out.println("Podaj dwie liczby (pierwsza to podstawa, a druga to wykładnik potęgi):");
-        Scanner readInput = new Scanner(System.in);
+        Scanner readInput = new Scanner(System.in).useLocale(Locale.US);
         double a = readInput.nextDouble();
         double b = readInput.nextDouble();
         double wynik = potegowanie(a,b);
-        DecimalFormat df = new DecimalFormat("#.####");
         System.out.println("Wynik potęgowania: "+df.format(wynik));
     }
 }
