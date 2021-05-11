@@ -38,7 +38,7 @@ def generate_values(i):
     # all cases with using few words
     for case in cases:
         for x in range(i):
-            words = random.randint(1,10)
+            words = random.randint(2,10)
             test = ''
             for x in range(words):
                 test = test + ''.join(random.choice(''.join(z for z in case)) for _ in range(random.randint(1,20)))+ ' '  
