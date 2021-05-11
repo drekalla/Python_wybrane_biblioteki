@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 10 18:15:28 2021
-
-@author: Olek
-"""
-"""
-Created on Wed May  5 17:59:38 2021
-@author: Olek
-"""
 import math
 import random
 import numpy as np
