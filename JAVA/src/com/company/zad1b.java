@@ -26,7 +26,7 @@ public class zad1b {
 
     public static void main(String[] args) {
         DecimalFormatSymbols nf = new DecimalFormatSymbols(Locale.US);
-        DecimalFormat df = new DecimalFormat("#.####", nf);
+        DecimalFormat df = new DecimalFormat("0.0###", nf);
         System.out.println("Podaj dwie liczby (pierwsza to podstawa, a druga to wykładnik potęgi):");
         Scanner readInput = new Scanner(System.in).useLocale(Locale.US);
         int a = readInput.nextInt();
