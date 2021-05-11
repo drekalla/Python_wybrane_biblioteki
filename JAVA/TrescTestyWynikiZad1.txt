@@ -1,12 +1,18 @@
+Napisać program pobierjący od użytkowanika dwie liczby rzeczywiste (w odzielnych liniach, zatwierdzane enterem),
+a następnie zwracający wynik rzeczywisty bedący rezultatem potęgowania tych liczb (pierwsza z liczb to podstawa,
+ruga to wykładnik). Zwracane liczba powinna zawierać maksyalnie 4 miejsca po przecinsku, a separatorem dziesiętnym
+zwracanej jak i podawanych liczb powinna być kropka.
+
+
 13  4 => 28561
 3  3 => 27
 0  3 => 0
 3  0 => 1 
-2,1  4 => 19,4481
-4  0,5 => 2
+2.1  4 => 19.4481
+4  0.5 => 2
 -2  3 => -8
 3  -2 => 0.1111
--4  -2 => 0.625
--2.1  4 => 19,4481
-4  -0,5 => 0,5
--2,8  0 => 1
+-4  -2 => 0.0625
+-2.1  4 => 19.4481
+4  -0.5 => 0.5
+-2.8  0 => 1

@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 """
 Created on Wed May  5 17:59:38 2021
-
 @author: Olek
 """
 import math
@@ -90,7 +88,7 @@ def generate_values(i):
         exponent = random.randint(-10,-1)
         result = math.pow(base, exponent)
         test_values.append("{};{}".format(base,exponent))
-        results.append(str(round(result,4)).replace(".",","))
+        results.append(str(round(result,4)).replace(",","."))
         
     #case8 (uc ^ 0)
     for x in range(i):
@@ -144,7 +142,7 @@ def generate_values(i):
     #     exponent = random.randint(-10,-1)
     #     result = math.pow(base, exponent)
     #     test_values.append("{};{}".format(base,exponent))
-    #     results.append(str(round(result,4)).replace(".",","))
+    #     results.append(str(round(result,4)).replace(",","."))
         
     #case13 (0 ^ 0)
     for x in range(1):
@@ -168,7 +166,7 @@ def generate_values(i):
     #     exponent = round(random.uniform(-9.9, -0.1),1)
     #     result = math.pow(base, exponent)
     #     test_values.append("{};{}".format(base,exponent))
-    #     results.append(str(round(result,4)).replace(".",","))
+    #     results.append(str(round(result,4)).replace(",","."))
         
     #case16 (dr ^ dc)
     for x in range(i):
@@ -281,4 +279,3 @@ with open('zad1_tests.txt', 'w') as plik:
 with open('zad1_results.txt', 'w') as plik:
     for res in results:
         plik.writelines(str(res) + "\n")
-        
