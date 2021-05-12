@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import os
 from testJavaProgram import testJavaProgram
 
@@ -33,6 +33,10 @@ class Window(object):
         self.timeString = tk.StringVar()
         self.timeString.set(0)
 
+        # Start selectedFileString value (GUI text)
+        self.selectedFileString = tk.StringVar()
+        self.selectedFileString.set("Wybrany plik: Brak")
+
         # Fonts
         self.uiFontNormal = "Verdana 9 normal"
         self.uiFontUnderline = "Verdana 9 underline"
@@ -41,22 +45,22 @@ class Window(object):
         self.folderLabel = tk.Label(
             window, text="Wybrany folder:", font=self.uiFontUnderline)
         self.folderLabelVariable = tk.Label(
-            window, textvariable=self.folderString, font=self.uiFontNormal)
+            window, textvariable=self.folderString, font=self.uiFontNormal, bg="red")
 
         self.jdkLabel = tk.Label(
             window, text="Wybrane JDK:", font=self.uiFontUnderline)
         self.jdkLabelVariable = tk.Label(
-            window, textvariable=self.jdkString, font=self.uiFontNormal)
+            window, textvariable=self.jdkString, font=self.uiFontNormal, bg="red")
 
         self.testFileLabel = tk.Label(
             window, text="Wybrany plik z testami:", font=self.uiFontUnderline)
         self.testFileLabelVariable = tk.Label(
-            window, textvariable=self.testFileString, font=self.uiFontNormal)
+            window, textvariable=self.testFileString, font=self.uiFontNormal, bg="red")
 
         self.resultFileLabel = tk.Label(
             window, text="Wybrany plik z wynikami:", font=self.uiFontUnderline)
         self.resultFileLabelVariable = tk.Label(
-            window, textvariable=self.resultFileString, font=self.uiFontNormal)
+            window, textvariable=self.resultFileString, font=self.uiFontNormal, bg="red")
 
         self.resultLabel = tk.Label(
             window, text="Wynik: ", font=self.uiFontUnderline)
@@ -67,6 +71,9 @@ class Window(object):
             window, text="Czas: ", font=self.uiFontUnderline)
         self.timeLabelVariable = tk.Label(
             window, textvariable=self.timeString, font=self.uiFontNormal)
+
+        self.selectedFileLabelVariable = tk.Label(
+            window, textvariable=self.selectedFileString, font=self.uiFontNormal)
 
         # Buttons
         self.refreshListboxButtton = tk.Button(
@@ -96,74 +103,102 @@ class Window(object):
         self.javaFilesListbox.bind("<<ListboxSelect>>", self.get_selected_file)
 
         # Grid configuration
-        self.javaFilesListbox.grid(row=0, column=0, rowspan=4)
-        self.refreshListboxButtton.grid(row=4, column=0)
-        self.chooseFolderButtton.grid(row=5, column=0)
-        self.folderLabel.grid(row=6, column=0)
-        self.folderLabelVariable.grid(row=7, column=0)
-        self.chooseTestFileButtton.grid(row=8, column=0)
-        self.testFileLabel.grid(row=9, column=0)
-        self.testFileLabelVariable.grid(row=10, column=0)
+        self.javaFilesListbox.grid(row=0, column=0, rowspan=5)
+        self.refreshListboxButtton.grid(row=5, column=0)
+        self.chooseFolderButtton.grid(row=6, column=0)
+        self.folderLabel.grid(row=7, column=0)
+        self.folderLabelVariable.grid(row=8, column=0)
+        self.chooseTestFileButtton.grid(row=9, column=0)
+        self.testFileLabel.grid(row=10, column=0)
+        self.testFileLabelVariable.grid(row=11, column=0)
 
-        self.scrollbar.grid(row=0, column=1, rowspan=4)
+        self.scrollbar.grid(row=0, column=1, rowspan=5)
 
         self.resultLabel.grid(row=0, column=2)
         self.resultLabelVariable.grid(row=1, column=2)
         self.timeLabel.grid(row=2, column=2)
         self.timeLabelVariable.grid(row=3, column=2)
-        self.runFileButtton.grid(row=4, column=2)
-        self.chooseJDKButtton.grid(row=5, column=2)
-        self.jdkLabel.grid(row=6, column=2)
-        self.jdkLabelVariable.grid(row=7, column=2)
-        self.chooseResultFileButtton.grid(row=8, column=2)
-        self.resultFileLabel.grid(row=9, column=2)
-        self.resultFileLabelVariable.grid(row=10, column=2)
+        self.selectedFileLabelVariable.grid(row=4, column=2)
+        self.runFileButtton.grid(row=5, column=2)
+        self.chooseJDKButtton.grid(row=6, column=2)
+        self.jdkLabel.grid(row=7, column=2)
+        self.jdkLabelVariable.grid(row=8, column=2)
+        self.chooseResultFileButtton.grid(row=9, column=2)
+        self.resultFileLabel.grid(row=10, column=2)
+        self.resultFileLabelVariable.grid(row=11, column=2)
 
     def refresh_listbox_command(self):
+        self.javaFilesListbox.delete(0, tk.END)
+
+        self.selectedFile = ""
+        self.selectedFileString.set("Wybrany plik: Brak")
+
         allFiles = os.listdir(self.selectedFolder)
         javaFiles = [file for file in allFiles if file[-5:] == ".java"]
-
-        self.javaFilesListbox.delete(0, tk.END)
-        for file in javaFiles:
-            self.javaFilesListbox.insert(tk.END, file)
+        if len(javaFiles) == 0:
+            self.javaFilesListbox.insert(tk.END, "Brak plików JAVA w folderze")
+        else:
+            for file in javaFiles:
+                self.javaFilesListbox.insert(tk.END, file)
 
     def choose_folder_command(self):
-        self.selectedFolder = filedialog.askdirectory()
-        self.folderString.set(self.selectedFolder)
+        ask = filedialog.askdirectory()
+        if len(ask) == 0:
+            pass
+        else:
+            self.selectedFolder = ask
+            self.folderString.set(self.selectedFolder)
+            self.folderLabelVariable.config(bg="green")
 
         self.refresh_listbox_command()
 
     def choose_jdk_command(self):
-        self.selectedJDK = filedialog.askdirectory()
-        self.jdkString.set(self.selectedJDK)
+        ask = filedialog.askdirectory()
+        if len(ask) == 0:
+            pass
+        else:
+            self.selectedJDK = ask
+            self.jdkString.set(self.selectedJDK)
+            self.jdkLabelVariable.config(bg="green")
 
     def choose_test_file_command(self):
-        self.selectedTestFile = filedialog.askopenfilename(
+        ask = filedialog.askopenfilename(
             title="Wybierz plik z testami", filetypes=[("Pliki tekstowe", "*.txt")])
-        self.testFileString.set(self.selectedTestFile)
+        if len(ask) == 0:
+            pass
+        else:
+            self.selectedTestFile = ask
+            self.testFileString.set(self.selectedTestFile)
+            self.testFileLabelVariable.config(bg="green")
 
     def choose_result_file_command(self):
-        self.selectedResultFile = filedialog.askopenfilename(
+        ask = filedialog.askopenfilename(
             title="Wybierz plik z wynikami", filetypes=[("Pliki tekstowe", "*.txt")])
-        self.resultFileString.set(self.selectedResultFile)
+        if len(ask) == 0:
+            pass
+        else:
+            self.selectedResultFile = ask
+            self.resultFileString.set(self.selectedResultFile)
+            self.resultFileLabelVariable.config(bg="green")
 
     def run_app_command(self):
-        # ToDo
-        # Oprogramować uruchamianie wybranego pliku
-        # self.selectedFolder - zawiera ścieżke do wybranego folderu
-        # self.selectedFile - zawiera nazwę wybranego pliku
-        result, time = testJavaProgram(self.selectedJDK, self.selectedResultFile, self.selectedTestFile, self.selectedFolder, self.selectedFile)
+        try:
+            result, time = testJavaProgram(self.selectedJDK, self.selectedResultFile,
+                                           self.selectedTestFile, self.selectedFolder, self.selectedFile)
+            self.resultString.set(result)
+            self.timeString.set(time)
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Wystąpił błąd",
+                                 "Musisz wybrać prawidłowe foldery oraz pliki\n"
+                                 "Musisz wybrać plik JAVA z listy")
 
-        self.resultString.set(result)
-        self.timeString.set(time)
-        print("Plik uruchomiony")
 
     def get_selected_file(self, event):
         try:
             index = self.javaFilesListbox.curselection()[0]
             self.selectedFile = self.javaFilesListbox.get(index)
-
-            print(self.selectedFile)
+            self.selectedFileString.set(f"Wybrany plik: {self.selectedFile}")
         except IndexError:
             pass
 
