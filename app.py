@@ -1,6 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, ttk
 import os
+import time
+import threading
 from testJavaProgram import testJavaProgram
 
 
@@ -102,7 +104,12 @@ class Window(object):
         # Handle Listbox select
         self.javaFilesListbox.bind("<<ListboxSelect>>", self.get_selected_file)
 
+        # Progressbar
+        self.progressbar = ttk.Progressbar(
+            window, orient="horizontal", mode="indeterminate", length=550)
+
         # Grid configuration
+        # Column 0
         self.javaFilesListbox.grid(row=0, column=0, rowspan=5)
         self.refreshListboxButtton.grid(row=5, column=0)
         self.chooseFolderButtton.grid(row=6, column=0)
@@ -112,8 +119,10 @@ class Window(object):
         self.testFileLabel.grid(row=10, column=0)
         self.testFileLabelVariable.grid(row=11, column=0)
 
+        # Column 1
         self.scrollbar.grid(row=0, column=1, rowspan=5)
 
+        # Column 2
         self.resultLabel.grid(row=0, column=2)
         self.resultLabelVariable.grid(row=1, column=2)
         self.timeLabel.grid(row=2, column=2)
@@ -128,11 +137,13 @@ class Window(object):
         self.resultFileLabelVariable.grid(row=11, column=2)
 
     def refresh_listbox_command(self):
+        # Clear list
         self.javaFilesListbox.delete(0, tk.END)
 
         self.selectedFile = ""
         self.selectedFileString.set("Wybrany plik: Brak")
 
+        # Search for all JAVA files in folder
         allFiles = os.listdir(self.selectedFolder)
         javaFiles = [file for file in allFiles if file[-5:] == ".java"]
         if len(javaFiles) == 0:
@@ -182,6 +193,18 @@ class Window(object):
             self.resultFileLabelVariable.config(bg="green")
 
     def run_app_command(self):
+        # Start java thread
+        self.runJavaThread = threading.Thread(
+            target=self.run_java)
+        self.runJavaThread.start()
+
+        # Start progressbar thread
+        self.runProgressbarThread = threading.Thread(
+            target=self.run_progressbar, args=("start", ))
+        self.runProgressbarThread.start()
+
+    def run_java(self):
+        # Try to run JAVA file
         try:
             result, time = testJavaProgram(self.selectedJDK, self.selectedResultFile,
                                            self.selectedTestFile, self.selectedFolder, self.selectedFile)
@@ -192,6 +215,20 @@ class Window(object):
                                  "Musisz wybrać prawidłowe foldery oraz pliki\n"
                                  "Musisz wybrać plik JAVA z listy")
 
+        # Stop progressbar thread
+        self.runProgressbarThread = threading.Thread(
+            target=self.run_progressbar, args=("stop", ))
+        self.runProgressbarThread.start()
+
+    def run_progressbar(self, mode):
+        if mode == "start":
+            # Show and start progressbar
+            self.progressbar.grid(row=12, column=0, columnspan=3, pady=5)
+            self.progressbar.start()
+        if mode == "stop":
+            # Hide and stop progressbar
+            self.progressbar.grid_forget()
+            self.progressbar.stop()
 
     def get_selected_file(self, event):
         try:
