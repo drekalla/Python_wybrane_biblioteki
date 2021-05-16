@@ -1,8 +1,9 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
 import os
 import time
 import threading
+import tkinter as tk
+
+from tkinter import filedialog, messagebox, ttk
 from testJavaProgram import testJavaProgram
 
 
@@ -44,36 +45,43 @@ class Window(object):
         self.uiFontUnderline = "Verdana 9 underline"
 
         # Labels
+        # Folder label and variable
         self.folderLabel = tk.Label(
             window, text="Wybrany folder:", font=self.uiFontUnderline)
         self.folderLabelVariable = tk.Label(
             window, textvariable=self.folderString, font=self.uiFontNormal, bg="red")
 
+        # JDK label and variable
         self.jdkLabel = tk.Label(
             window, text="Wybrane JDK:", font=self.uiFontUnderline)
         self.jdkLabelVariable = tk.Label(
             window, textvariable=self.jdkString, font=self.uiFontNormal, bg="red")
 
+        # Test file label and variable
         self.testFileLabel = tk.Label(
             window, text="Wybrany plik z testami:", font=self.uiFontUnderline)
         self.testFileLabelVariable = tk.Label(
             window, textvariable=self.testFileString, font=self.uiFontNormal, bg="red")
 
+        # Result file label and variable
         self.resultFileLabel = tk.Label(
             window, text="Wybrany plik z wynikami:", font=self.uiFontUnderline)
         self.resultFileLabelVariable = tk.Label(
             window, textvariable=self.resultFileString, font=self.uiFontNormal, bg="red")
 
+        # Result label and variable
         self.resultLabel = tk.Label(
             window, text="Wynik: ", font=self.uiFontUnderline)
         self.resultLabelVariable = tk.Label(
             window, textvariable=self.resultString, font=self.uiFontNormal)
 
+        # Time label and variable
         self.timeLabel = tk.Label(
             window, text="Czas: ", font=self.uiFontUnderline)
         self.timeLabelVariable = tk.Label(
             window, textvariable=self.timeString, font=self.uiFontNormal)
 
+        # Selected file label
         self.selectedFileLabelVariable = tk.Label(
             window, textvariable=self.selectedFileString, font=self.uiFontNormal)
 
@@ -140,10 +148,11 @@ class Window(object):
         # Clear list
         self.javaFilesListbox.delete(0, tk.END)
 
+        # Clear selected file
         self.selectedFile = ""
         self.selectedFileString.set("Wybrany plik: Brak")
 
-        # Search for all JAVA files in folder
+        # Search for all JAVA files in folder and insert JAVA files in list
         allFiles = os.listdir(self.selectedFolder)
         javaFiles = [file for file in allFiles if file[-5:] == ".java"]
         if len(javaFiles) == 0:
@@ -153,6 +162,7 @@ class Window(object):
                 self.javaFilesListbox.insert(tk.END, file)
 
     def choose_folder_command(self):
+        # Open dialog and save selection to selectedFolder variable
         ask = filedialog.askdirectory()
         if len(ask) == 0:
             pass
@@ -164,6 +174,7 @@ class Window(object):
         self.refresh_listbox_command()
 
     def choose_jdk_command(self):
+        # Open dialog and save selection to selectedJDK variable
         ask = filedialog.askdirectory()
         if len(ask) == 0:
             pass
@@ -173,6 +184,7 @@ class Window(object):
             self.jdkLabelVariable.config(bg="green")
 
     def choose_test_file_command(self):
+        # Open dialog and save selection to selectedTestFile variable
         ask = filedialog.askopenfilename(
             title="Wybierz plik z testami", filetypes=[("Pliki tekstowe", "*.txt")])
         if len(ask) == 0:
@@ -183,6 +195,7 @@ class Window(object):
             self.testFileLabelVariable.config(bg="green")
 
     def choose_result_file_command(self):
+        # Open dialog and save selection to selectedResultFile variable
         ask = filedialog.askopenfilename(
             title="Wybierz plik z wynikami", filetypes=[("Pliki tekstowe", "*.txt")])
         if len(ask) == 0:
@@ -231,6 +244,7 @@ class Window(object):
             self.progressbar.stop()
 
     def get_selected_file(self, event):
+        # Save selected file from list to selectedFile variable
         try:
             index = self.javaFilesListbox.curselection()[0]
             self.selectedFile = self.javaFilesListbox.get(index)
