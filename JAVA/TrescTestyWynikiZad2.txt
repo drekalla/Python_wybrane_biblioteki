@@ -1,6 +1,11 @@
 Napisać program który pobiera od użytkownika dowolny napis, a następnie wykona na nim operacje
 zamiany wszystkich liter na wielkie. Tak zmieniony napis ma zostać wydrukowany w konsoli.
 
+dodatkowe założenia:
+- plik w javie nie może zawierać package
+- wypisany wynik musi być poprzedzony dowolnym napisem i dwukropkiem (np "wynik : wyjście z programu")
+- wyjście z programu musi się w 100% zgadzać z wynikiem w pliku
+
 bulka2 => bulka2
 bułka => BUŁKA
 bułka2 => BUŁKA2
