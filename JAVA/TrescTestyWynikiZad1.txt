@@ -3,6 +3,11 @@ a następnie zwracający wynik rzeczywisty bedący rezultatem potęgowania tych 
 ruga to wykładnik). Zwracane liczba powinna zawierać maksyalnie 4 miejsca po przecinsku, a separatorem dziesiętnym
 zwracanej jak i podawanych liczb powinna być kropka.
 
+dodatkowe założenia:
+- plik w javie nie może zawierać package
+- wypisany wynik musi być poprzedzony dowolnym napisem i dwukropkiem (np "wynik : wyjście z programu")
+- wyjście z programu musi się w 100% zgadzać z wynikiem w pliku
+
 
 13  4 => 28561
 3  3 => 27
