@@ -7,7 +7,8 @@ b_alphabet = string.ascii_uppercase #ABCDEFGHIJKLMNOPQRSTUVWXYZ
 s_pl_letters  = 'ąćęłńóśźż'
 b_pl_letters  = s_pl_letters.upper() #'ĄĆĘŁŃÓŚŹŻ'
 digits = string.digits #0123456789
-punctuation = string.punctuation #!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+punctuation = string.punctuation #!"#$%&\'()*+,-./:<=>?@[\\]^_`{|}~
+punctuation = punctuation.replace(';','')
  
 lists = [s_alphabet, b_alphabet, s_pl_letters, b_pl_letters, digits, punctuation]
 cases = []
@@ -57,10 +58,10 @@ generate_values(int(i))
 # print(len(results))
 
 # writing test_values and results to files:
-with open('zad2_tests.txt', 'w') as plik:
+with open('zadania/zad2_tests.txt', 'w', encoding='utf-8') as plik:
     for t in test_values:
         plik.write(t + "\n")
         
-with open('zad2_results.txt', 'w') as plik:
+with open('zadania/zad2_results.txt', 'w', encoding='utf-8') as plik:
     for res in results:
         plik.writelines(res + "\n")       

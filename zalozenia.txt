@@ -1,0 +1,17 @@
+Plik z danymi testowymi:
+- brak średnika w danych testowych - średnik służy do dzielenia zmiennych w jednej linii
+- dane testowe do każdego z uruchomień kodu w javie powinny znajdować się w nowej linii, a zmienne powinny być odzielone średnikiem
+- plik w formacie .txt z kodowaniem utf-8
+
+Plik z danymi do powrównania(wynikami):
+- każdy z wyników powinien znajdować się w nowej lini
+- plik w formacie .txt z kodowaniem utf-8
+
+Treści zadań:
+- plik w javie nie może zawierać package
+- wypisany wynik musi być poprzedzony dowolnym napisem i dwukropkiem (np "wynik : wyjście z programu")
+- wyjście z programu musi się w 100% zgadzać z wynikiem w pliku
+
+Po wykonaniu programu w Javie tworzone są 2 pliki tekstowe (utf-8) w tej samej ścieżce co zadanie.
+Pliki te zawierają informacje o danych testowych, wyjściach z programu w Javie, poprawnych odpowiedziach oraz błędach
+w przypadku testów, które nie przeszły poprawnie.
