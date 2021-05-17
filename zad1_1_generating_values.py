@@ -62,10 +62,10 @@ generate_values(int(i))
 
 
 # zapis wygenerowanych wartoci do plików (jeli plików nie to zostaną stworzone)
-with open('zad1_tests.txt', 'w') as plik:
+with open('zad1_tests.txt', 'w', encoding="utf-8") as plik:
     for t in test_values:
         plik.write(str(t) + "\n")
         
-with open('zad1_results.txt', 'w') as plik:
+with open('zad1_results.txt', 'w', encoding="utf-8") as plik:
     for res in results:
         plik.writelines(str(res) + "\n")
