@@ -22,12 +22,18 @@ def testJavaProgram(jdkPath,resultFilePath, testFilePath, filePath, fileName):
         # każdy wynik powinien znajdować się w nowej linii w pliku tekstowym z wynikami
         try:
             testLines = open(testFilePath, encoding='utf8').read().splitlines()
+        except UnicodeDecodeError:
+            return 'Błędne kodowanie pliku z testawmi. \nPlik powinien być zakodowany w "utf-8"', 0
         except IOError:
             return 'Brak pliku z danymi testowymi', 0
+
         try:
             resultLines = open(resultFilePath, encoding='utf8').read().splitlines()
+        except UnicodeDecodeError:
+            return 'Błędne kodowanie pliku z wynikami. \nPlik powinien być zakodowany w "utf-8"', 0
         except IOError:
             return 'Brak pliku z wynikami dla danych testowych', 0
+
 
         # uruchamiam jednorazowo program, żeby sprawdzić co program wypisuje przed wypisaniem wyniku
         # ta zmienna jest później wykorzystana do prawidłowego rozpoznania wyjścia z programu
